@@ -147,7 +147,7 @@
 	  				</p>
 	  			</details>
 	  			<details>
-	  				<summary>99 bottles of beer (without common restrictions)</summary>
+	  				<summary>99 bottles of beer (impure)</summary>
 	  				<p>
 		  				BFDI 1a: Take the Plunge<br>
 		  				? 1: ?<br>
@@ -305,12 +305,12 @@
 	function interpret(input) {
 		let programLines = input.value.split("\n")
 		for (let x=0; x<programLines.length; x++) {
-			let temp = programLines[x].split(" ")
+			let temp = programLines[x].trim()
+			temp = temp.split(" ")
 			let temp2 = temp.slice(2, temp.length)
 			temp = temp.slice(0, 2)
 			temp[1] = temp[1].slice(0, -1)
 			temp2 = temp2.join(" ")
-			temp2 = temp2.trim()
 			temp.push(temp2)
 			programLines[x] = temp
 		}
