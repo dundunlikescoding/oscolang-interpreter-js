@@ -1,0 +1,417 @@
+<html> 
+	<head>
+		<title>The JS OSColang interpreter!</title>
+	</head>
+	<body style="background-color: black; color: lime; font-family: monospace;">
+		<h1 style="color: cyan;">OSColang interpreter!</h1>	
+		<h2 style="color: cyan;">What even is this</h2>
+		<p>Input OSColang code into the text area below, then click Run!
+		<details>
+  			<summary style="font-weight: bold;">Click for documentation</summary>
+  			<p style="color: white;">
+  				OSColang documentation<br>
+  				<br>
+  				This esolang is one-indexed.<br>
+  				Programs must begin with &quot;BFDI 1a: Take the Plunge&quot;, and end with &quot;BFB 30: Chapter Complete&quot;.<br>
+  				The format for a line is &quot;Acronym Number: Title&quot;.<br>
+  				<br>
+  				Programs are usually made under the restrictions that:<br>
+  				1. All lines must be real object show episodes, and<br>
+  				2. Lines must be unique<br>
+  				<br>
+  				When Number is:<br>
+  				1: Variable declaration<br>
+  				Declares a new variable, argument 1 (Acronym).<br>
+  				<br>
+  				2: Append<br>
+  				Places argument 2 (Title*) at the end of a variable argument 1 (Acronym).<br>
+  				<br>
+  				3: Attribute of line<br>
+  				Returns an attribute of the 2nd argument (Line), based on the 1st argument (Number). If the 1st argument is 1, it returns the Acronym. If the 1st argument is 2, it returns the Number. If the 1st argument is 3, it returns the Title. <br>
+  				<br>
+  				4: Return word at index<br>
+  				Returns the word of argument 2 (Title*) at the index argument 1 (Number).<br>
+  				<br>
+  				5: Return character at index<br>
+  				Returns the character of argument 2 (Title*) at the index argument 1 (Number).<br>
+  				<br>
+  				6: Print<br>
+  				Prints the contents of the variable argument 1 (Acronym).<br>
+  				<br>
+  				7: Jump if not 0<br>
+  				Jumps the program pointer to line argument 2 (Number) if a variable argument 1 (Acronym) is not zero. Otherwise, do not jump.<br>
+  				<br>
+  				8: Request input<br>
+  				Requests the input from the user, returning the input.<br>
+  				<br>
+  				9: Increment by number<br>
+  				Increments a variable argument 1 (Acronym) by a number argument 2 (Number).<br>
+  				<br>
+  				10: Decrement by number<br>
+  				Decrements a variable argument 1 (Acronym) by a number argument 2 (Number).<br>
+  				<br>
+  				11: Clear variable<br>
+  				Clears a variable argument 1 (Acronym).<br>
+  				<br>
+  				12: Return variable<br>
+  				Returns the value of a variable argument 1 (Acronym).<br>
+  				<br>
+  				13: To ASCII<br>
+  				Returns the ASCII value of the first character in a variable argument 1 (Acronym).<br>
+  				<br>
+  				14: From ASCII<br>
+  				Returns the ASCII character of the number in a variable argument 1 (Acronym).<br>
+  				<br>
+  				Not a number, or not between 1 and 9 inclusive except type Number arguments: Previous<br>
+  				Takes the result of the previous operation. Used as an argument in Number (and inputs marked *) inputs.<br>
+  				<br>
+  				Due to some JavaScript things, it is possible to get an error from JavaScript, and not the esolang itself.
+  			</p>
+  			<br>
+		</details>
+		<details>
+			<summary style="font-weight: bold;">Example programs</summary>
+  			<p style="color: white;">
+  				<details>
+  					<summary>Hello, World!</summary>
+  					<p>
+	  					BFDI 1a: Take the Plunge<br>
+	  					II 1: The Crappy Cliff<br>
+	  					BFDI:TPOT 1: You Know Those Buttons Don't Do Anything, Right?<br>
+	  					BFB 3: Why Would You Do This on a Swingset<br>
+	  					BFDIE 3: Everyone&rsquo;s Enemies<br>
+	  					BFAM 4: Hello Again...<br>
+	  					BFDI 4: Sweet Tooth<br>
+	  					BFB 1: Getting Teardrop to Talk<br>
+	  					BFDI 1b: Take the Plunge<br>
+	  					AIB 2: Smarter &amp; Boulder<br>
+	  					BFDI:TPOT 2: The Worst Day of Black Hole's Life<br>
+	  					TAW 1a: Who, Me?<br>
+	  					BFDIA 3: Insectophobe's Nightmare 3<br>
+	  					BFDI 3: Are You Smarter Than a Snowball?<br>
+	  					BFDIA 1: Yeah, Who? I Wanna Know<br>
+	  					BFDI 5: Bridge Crossing<br>
+	  					BFB 5: Fortunate Ben<br>
+	  					BFDIA 5a: Get in the Van<br>
+	  					BFDI 2: Barriers and Pitfalls<br>
+	  					BFDI:TPOT 3: Getting Puffball To Think About Rollercoasters<br>
+	  					BFDIA 5c: No More Snow!<br>
+	  					II 3: The Arena of Death<br>
+	  					II2 3: Tri Your Best<br>
+	  					BFDI 12: A Leg Up in the Race<br>
+	  					AIB 5: Sun Blocked<br>
+	  					II 2: A Lemony Lesson<br>
+	  					BFDIA 5d: It's a Monster<br>
+	  					II2 2: Marsh on Mars<br>
+	  					BFDI:TPOT 4: Gardening Zero<br>
+	  					BFDIA 5e: The Long-lost Yoyle City<br>
+	  					III 3: Snapshot Showdown<br>
+	  					IIIV 3: Run the Risk!<br>
+	  				  	TDOS:END 2: All the Time in the World<br>
+	  				  	BFB 4: Today's Very Special Episode<br>
+	  				  	BFDIA 6: Well Rested<br>
+		  				TAW 1b: Yes, You!<br>
+		  				III 2: The Shame of the Name<br>
+		  				BFDI:TPOT 5: Fishes and Dishes<br>
+		  				BFDI 19: Rescission<br>
+		  				TDOS 3: Tower of Evil<br>
+		  				AIB 3: Get A Grip<br>
+		  				BFDI 10: Crybaby!<br>
+		  				II 5: The Stacker<br>
+		  				BFDIA 8: Meaty<br>
+		  				BFDI 20: Gardening Hero<br>
+		  				IIIV 2: Cob Mentality<br>
+		  				BFDI:TPOT 6: The Great Goikian Bake-Off<br>
+		  				BFDI 21: The Glistening<br>
+		  				BFB 6: Four Goes Too Far<br>
+		  				BFDI:TPOT 7: The Seven Wonders of Goiky<br>
+		  				BFB 30: Chapter Complete<br>
+	  				</p>
+	  			</details>
+	  			<details>
+	  				<summary>truth-machine</summary>
+					<p>
+		  				BFDI 1a: Take the Plunge<br>
+		  				BFB 1: Getting Teardrop to Talk<br>
+		  				BFDIA 1: Yeah, Who? I Wanna Know<br>
+		  				BFB 8: Questions Answered<br>
+		  				BFB 2: Lick Your Way to Freedom<br>
+		  				BFDIA 2: Get Digging<br>
+		  				BFDIA 5a: Get in the Van<br>
+		  				BFB 6: Four Goes Too Far<br>
+		  				BFDIA 3: Insectophobe's Nightmare 3<br>
+		  				BFB 7: The Liar Ball You Don't Want<br>
+		  				BFDIA 4: Zeeky Boogy Doog<br>
+		  				BFDIA 8: Meaty<br>
+		  				BFB 30: Chapter Complete<br>
+	  				</p>
+	  			</details>
+	  			<details>
+	  				<summary>99 bottles of beer (without common restrictions)</summary>
+	  				<p>
+		  				BFDI 1a: Take the Plunge<br>
+		  				? 1: ?<br>
+		  				WALL, ?: ?<br>
+		  				? 2: ?<br>
+		  				WALL, ?: ?<br>
+		  				? 1:&nbsp;&nbsp;bottles of beer on the wall,<br>
+		  				? 1: ?<br>
+		  				BEER. ?: ?<br>
+		  				? 2: ?<br>
+		  				BEER. ?: ?<br>
+		  				? 1:&nbsp;&nbsp;bottles of beer.<br>
+		  				? 1: ?<br>
+		  				AROUND ?: ?<br>
+		  				? 2: ?<br>
+		  				AROUND ?: ?<br>
+		  				? 1:&nbsp;&nbsp;Take one down, pass it around,<br>
+		  				? 1: ?<br>
+		  				WALL. ?: ?<br>
+		  				? 2: ?<br>
+		  				WALL. ?: ?<br>
+		  				? 1:&nbsp;&nbsp;bottles of beer on the wall.<br>
+		  				? 1: ?<br>
+		  				NEW ?: ?<br>
+		  				? 2: ?<br>
+		  				NEW ?: ?<br>
+		  				? 1: <br>
+		  				? 1: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 9: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 99: ?<br>
+		  				? 1: ?<br>
+		  				TEMP ?: ?<br>
+		  				? 11: #<br>
+		  				TEMP ?: ?<br>
+		  				? 12: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 12: ?<br>
+		  				WALL, ?: !<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 6: ?<br>
+		  				TEMP ?: ?<br>
+		  				? 11: #<br>
+		  				TEMP ?: ?<br>
+		  				? 12: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 12: ?<br>
+		  				BEER. ?: !<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 6: ?<br>
+		  				TEMP ?: ?<br>
+		  				? 6: ?<br>
+		  				AROUND ?: ?<br>
+		  				? 10: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 1: ?<br>
+		  				? 11: #<br>
+		  				TEMP ?: ?<br>
+		  				? 12: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 12: ?<br>
+		  				WALL. ?: !<br>
+		  				? 2: ?<br>
+		  				TEMP ?: ?<br>
+		  				? p: ?<br>
+		  				? 6: ?<br>
+		  				TEMP ?: ?<br>
+		  				? 6: ?<br>
+		  				NEW ?: ?<br>
+		  				? 7: ?<br>
+		  				BEERS ?: ?<br>
+		  				? 34: ?<br>
+		  				BFB 30: Chapter Complete
+		  			</p>
+		  		</details>
+		  		<details>
+	  				<summary>Cat program</summary>
+	  				<p>
+		  				BFDI 1a: Take the Plunge<br>
+		  				BFDIA 1: Yeah, Who? I Wanna Know<br>
+		  				BFB 1: Getting Teardrop to Talk<br>
+		  				BFDIA 8: Meaty<br>
+		  				BFDIA 2: Get Digging<br>
+		  				BFB 2: Lick Your Way to Freedom<br>
+		  				BFDIA 5a: Get in the Van<br>
+		  				BFDIA 6: Well Rested<br>
+		  				BFB 3: Why Would You Do This on a Swingset<br>
+		  				BFB 30: Chapter Complete
+		  			</p>
+		  		</details>
+				<details>
+	  				<summary>XKCD Random Number</summary>
+	  				<p>
+		  				BFDI 1a: Take the Plunge<br>
+		  				BFDI:TPOT 1: You Know Those Buttons Don't Do Anything, Right?<br>
+		  				ONE 1: Freefall<br>
+		  				BFDI:TPOT 9: Outbreak At Stake<br>
+		  				ONE 2: Just Tripped<br>
+		  				BFDI:TPOT 4: Gardening Zero<br>
+		  				BFDI:TPOT 6: The Great Goikian Bake-Off<br>
+		  				ONE 3: Screwball<br>
+		  				BFB 30: Chapter Complete
+		  			</p>
+		  		</details>
+  			</p>
+		</details>
+		</p> 
+		<textarea placeholder="Input code here..." rows="20" cols="100" id="input"></textarea>
+		<br>
+		<button id="button">Run!</button>
+		<input type="checkbox" id="check">
+		Terminate program after
+		<input type="number" id="number">
+		instructions.
+		<br>
+		<details>
+			<summary style="font-weight: bold;">Fun facts</summary>
+			<p>
+				<div id="numof"></div>
+				<div id="vars"></div>
+			</p>
+		</details>
+		<p style="color: white;">
+			Things printed will print here.
+		</p>
+		<p id="output" style="color: white;"></p>
+	</body>
+</html>
+
+<script>
+	document.getElementById("button").onclick = () => {
+		document.getElementById("output").textContent = ""
+		try{
+			interpret(document.getElementById("input"))
+			intpPrint("Program ended successfully.") 
+		} catch (error) {
+			intpError(0, `Strange JavaScript error occured, specifically ${error}`)
+		}
+	}
+
+	function interpret(input) {
+		let programLines = input.value.split("\n")
+		for (let x=0; x<programLines.length; x++) {
+			let temp = programLines[x].split(" ")
+			let temp2 = temp.slice(2, temp.length)
+			temp = temp.slice(0, 2)
+			temp[1] = temp[1].slice(0, -1)
+			temp2 = temp2.join(" ")
+			temp.push(temp2)
+			programLines[x] = temp
+		}
+
+		if (!(input.value.split("\n")[0] == "BFDI 1a\: Take the Plunge")) {
+				intpError(0,'Program does not begin with \"BFDI 1a\: Take the Plunge\"')
+				return
+		}
+
+		if (!(input.value.split("\n")[input.value.split("\n").length-1] == "BFB 30\: Chapter Complete")) {
+				intpError(0,'Program does not end with \"BFB 30\: Chapter Complete\"')
+				return
+		}
+
+		let variables = {}
+		let prev = ""
+		let count = 0
+
+		for (let x=1; x<programLines.length-1; x++) {
+			count++
+			if (programLines[x][1] == 1) {
+				variables[programLines[x+1][0]] = ""
+				x++
+			} else if (programLines[x][1] == 2) {
+				variables[programLines[x+1][0]] = variables[programLines[x+1][0]] + intpDecide(!((!(Number(programLines[x+2][1])))||(programLines[x+2][1]<1)||(programLines[x+2][1]>9)), programLines[x+2][2], prev)
+				x++
+				x++
+			} else if (programLines[x][1] == 3) {
+				prev = programLines[x+2][programLines[x+1][1]-1]
+				x++
+				x++
+			} else if (programLines[x][1] == 4) {
+				prev = intpDecide(!((!(Number(programLines[x+2][1])))||(programLines[x+2][1]<1)||(programLines[x+2][1]>9)), programLines[x+2][2], prev).split(" ")[programLines[x+1][1]-1]
+				x++
+				x++
+			} else if (programLines[x][1] == 5) {
+				prev = intpDecide(!((!(Number(programLines[x+2][1])))||(programLines[x+2][1]<1)||(programLines[x+2][1]>9)), programLines[x+2][2], prev).split("")[programLines[x+1][1]-1]
+				x++
+				x++
+			} else if (programLines[x][1] == 6) {
+				intpPrint(variables[programLines[x+1][0]])
+				x++
+			} else if (programLines[x][1] == 7) {
+				if (!(variables[programLines[x+1][0]] == 0)) {
+					x = programLines[x+2][1]-2
+				} else {
+					x++
+					x++
+				}
+			} else if (programLines[x][1] == 8) {
+				prev = prompt("Input:")
+			} else if (programLines[x][1] == 9) {
+				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) + Number(programLines[x+2][1])
+				x++
+				x++
+			} else if (programLines[x][1] == 10) {
+				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) - programLines[x+2][1]
+				x++
+				x++
+			} else if (programLines[x][1] == 11) {
+				variables[programLines[x+1][0]] = ""
+				x++
+			} else if (programLines[x][1] == 12) {
+				prev = variables[programLines[x+1][0]]
+				x++
+			} else if (programLines[x][1] == 13) {
+				prev = variables[programLines[x+1][0]].charCodeAt(0)
+				x++
+			} else if (programLines[x][1] == 14) {
+				prev = String.fromCharCode(variables[programLines[x+1][0]])
+				x++
+			} else {
+				intpError(x+1,"Invalid opcode")
+				return
+			}
+
+			document.getElementById("numof").textContent = `${count} instructions ran.`
+			document.getElementById("vars").innerHTML = "Variables:"
+			for (let keys of Object.entries(variables)) {
+				document.getElementById("vars").innerHTML = document.getElementById("vars").innerHTML + "<br>" + keys[0] + "\: " + keys[1]
+			}
+
+			if ((count == document.getElementById("number").value) && document.getElementById("check").checked) {
+				intpError(x+1,"Broke out of program\; intentional error")
+				return
+			}
+		}
+	}
+
+	function intpError(line, text) {
+		intpPrint(`Error occured on line ${line} because: ${text}`)
+	}
+
+	function intpPrint(toprint) {
+		document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + toprint + "\<br\>"
+	}
+
+	function intpDecide(decider, iftrue, iffalse) {
+		if (decider) {
+			return iftrue
+		} else {
+			return iffalse
+		}
+	}
+</script>
