@@ -45,10 +45,10 @@
   				Requests the input from the user, returning the input.<br>
   				<br>
   				9: Increment by number<br>
-  				Increments a variable argument 1 (Acronym) by a number argument 2 (Number).<br>
+  				Increments a variable argument 1 (Acronym) by a number argument 2 (Number, * only for NaN).<br>
   				<br>
   				10: Decrement by number<br>
-  				Decrements a variable argument 1 (Acronym) by a number argument 2 (Number).<br>
+  				Decrements a variable argument 1 (Acronym) by a number argument 2 (Number, * only for NaN).<br>
   				<br>
   				11: Clear variable<br>
   				Clears a variable argument 1 (Acronym).<br>
@@ -266,10 +266,113 @@
 		  				BFB 30: Chapter Complete
 		  			</p>
 		  		</details>
+		  		<details>
+	  				<summary>FizzBuzz (fake, impure)</summary>
+	  				<p>
+		  				BFDI 1a: Take the Plunge<br>
+		  				? 1: ?<br>
+		  				F ?: ?<br>
+		  				? 2: ?<br>
+		  				F ?: ?<br>
+		  				? 1: Fizz<br>
+		  				? 1: ?<br>
+		  				B ?: ?<br>
+		  				? 2: ?<br>
+		  				B ?: ?<br>
+		  				? 1: Buzz<br>
+		  				? 1: ?<br>
+		  				FB ?: ?<br>
+		  				? 2: ?<br>
+		  				FB ?: ?<br>
+		  				? 1: FizzBuzz<br>
+		  				? 1: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				F ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				B ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				F ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				F ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				B ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				F ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				NUM ?: ?<br>
+		  				? 9: #<br>
+		  				NUM ?: ?<br>
+		  				? 1: ?<br>
+		  				? 6: ?<br>
+		  				FB ?: ?<br>
+		  				? 7: ?<br>
+		  				NUM ?: ?<br>
+		  				? 19: ?<br>
+		  				BFB 30: Chapter Complete
+		  			</p>
+		  		</details>
   			</p>
 		</details>
 		</p> 
 		<textarea placeholder="Input code here..." rows="20" cols="100" id="input"></textarea>
+		<button id="placeholded">Add start and end</button>
 		<br>
 		<button id="button">Run!</button>
 		<input type="checkbox" id="check">
@@ -292,6 +395,10 @@
 </html>
 
 <script>
+	document.getElementById("placeholded").onclick = () => {
+		document.getElementById("input").value = `BFDI 1a: Take the Plunge\n${document.getElementById("input").value}\nBFB 30: Chapter Complete`
+	}
+
 	document.getElementById("button").onclick = () => {
 		document.getElementById("output").textContent = ""
 		try{
@@ -363,11 +470,11 @@
 			} else if (programLines[x][1] == 8) {
 				prev = prompt("Input:")
 			} else if (programLines[x][1] == 9) {
-				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) + Number(programLines[x+2][1])
+				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) + Number(intpDecide(Number(programLines[x+2][1]), programLines[x+2][1], prev))
 				x++
 				x++
 			} else if (programLines[x][1] == 10) {
-				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) - programLines[x+2][1]
+				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) - Number(intpDecide(Number(programLines[x+2][1]), programLines[x+2][1], prev))
 				x++
 				x++
 			} else if (programLines[x][1] == 11) {
