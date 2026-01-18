@@ -310,16 +310,17 @@
 			temp = temp.slice(0, 2)
 			temp[1] = temp[1].slice(0, -1)
 			temp2 = temp2.join(" ")
+			temp2 = temp2.trim()
 			temp.push(temp2)
 			programLines[x] = temp
 		}
 
-		if (!(input.value.split("\n")[0] == "BFDI 1a\: Take the Plunge")) {
+		if (!(input.value.split("\n")[0].trim() == "BFDI 1a\: Take the Plunge")) {
 				intpError(0,'Program does not begin with \"BFDI 1a\: Take the Plunge\"')
 				return
 		}
 
-		if (!(input.value.split("\n")[input.value.split("\n").length-1] == "BFB 30\: Chapter Complete")) {
+		if (!(input.value.split("\n")[input.value.split("\n").length-1].trim() == "BFB 30\: Chapter Complete")) {
 				intpError(0,'Program does not end with \"BFB 30\: Chapter Complete\"')
 				return
 		}
