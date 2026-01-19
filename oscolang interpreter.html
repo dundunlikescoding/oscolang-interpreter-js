@@ -65,6 +65,9 @@
   				15: Character of variable at index<br>
   				Returns the character of the variable argument 1 (Acronym) at index variable argument 2 (Acronym).<br>
   				<br>
+  				16: No operation<br>
+  				Does nothing.<br>
+  				<br>
   				Not a number, or not between 1 and 9 inclusive except type Number arguments: Previous<br>
   				Takes the result of the previous operation. Used as an argument in Number (and inputs marked *) inputs.<br>
   				<br>
@@ -413,16 +416,19 @@
 	}
 
 	function interpret(input) {
-		let programLines = input.value.split("\n")
-		for (let x=0; x<programLines.length; x++) {
-			let temp = programLines[x].trim()
-			temp = temp.split(" ")
-			let temp2 = temp.slice(2, temp.length)
-			temp = temp.slice(0, 2)
-			temp[1] = temp[1].slice(0, -1)
-			temp2 = temp2.join(" ")
-			temp.push(temp2)
-			programLines[x] = temp
+		let programLinesT = input.value.split("\n")
+		let programLines = []
+		for (let x=0; x<programLinesT.length; x++) {
+			let temp = programLinesT[x].trim()
+			if (!(temp == "")) {
+				temp = temp.split(" ")
+				let temp2 = temp.slice(2, temp.length)
+				temp = temp.slice(0, 2)
+				temp[1] = temp[1].slice(0, -1)
+				temp2 = temp2.join(" ")
+				temp.push(temp2)
+				programLines.push(temp)
+			}
 		}
 
 		if (!(input.value.split("\n")[0].trim() == "BFDI 1a\: Take the Plunge")) {
@@ -442,9 +448,17 @@
 		for (let x=1; x<programLines.length-1; x++) {
 			count++
 			if (programLines[x][1] == 1) {
+				if (intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} already exists`)
+					return
+				}
 				variables[programLines[x+1][0]] = ""
 				x++
 			} else if (programLines[x][1] == 2) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				variables[programLines[x+1][0]] = variables[programLines[x+1][0]] + intpDecide(!((!(Number(programLines[x+2][1])))||(programLines[x+2][1]<1)||(programLines[x+2][1]>9)), programLines[x+2][2], prev)
 				x++
 				x++
@@ -461,9 +475,17 @@
 				x++
 				x++
 			} else if (programLines[x][1] == 6) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				intpPrint(variables[programLines[x+1][0]])
 				x++
 			} else if (programLines[x][1] == 7) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				if (!(variables[programLines[x+1][0]] == 0)) {
 					x = programLines[x+2][1]-2
 				} else {
@@ -473,29 +495,64 @@
 			} else if (programLines[x][1] == 8) {
 				prev = prompt("Input:")
 			} else if (programLines[x][1] == 9) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) + Number(intpDecide(Number(programLines[x+2][1]), programLines[x+2][1], prev))
 				x++
 				x++
 			} else if (programLines[x][1] == 10) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				variables[programLines[x+1][0]] = Number(variables[programLines[x+1][0]]) - Number(intpDecide(Number(programLines[x+2][1]), programLines[x+2][1], prev))
 				x++
 				x++
 			} else if (programLines[x][1] == 11) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				variables[programLines[x+1][0]] = ""
 				x++
 			} else if (programLines[x][1] == 12) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				prev = variables[programLines[x+1][0]]
 				x++
 			} else if (programLines[x][1] == 13) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				prev = variables[programLines[x+1][0]].charCodeAt(0)
 				x++
 			} else if (programLines[x][1] == 14) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
 				prev = String.fromCharCode(variables[programLines[x+1][0]])
 				x++
 			} else if (programLines[x][1] == 15) {
+				if (!intpCheckVar(programLines[x+1][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+1][0]} does not exist`)
+					return
+				}
+				if (!intpCheckVar(programLines[x+2][0],variables)) {
+					intpError(x+1,`Variable ${programLines[x+2][0]} does not exist`)
+					return
+				}
+
 				prev = variables[programLines[x+1][0]].split("")[variables[programLines[x+2][0]]-1]
 				x++
 				x++
+			} else if (programLines[x][1] == 16) {
+
 			} else {
 				intpError(x+1,"Invalid opcode")
 				return
@@ -528,5 +585,9 @@
 		} else {
 			return iffalse
 		}
+	}
+
+	function intpCheckVar(tocheck, thelist) {
+		return tocheck in thelist
 	}
 </script>
